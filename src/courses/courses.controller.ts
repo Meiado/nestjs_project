@@ -1,32 +1,36 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { CoursesService } from './courses.service';
+import { CreateCourseDTO } from './dto/create-course-dto';
+import { UpdateCourseDTO } from './dto/update-course-dto';
 
 @Controller('courses')
 export class CoursesController {
+  constructor(private readonly courseService : CoursesService) {}
+
   @Get()
-  findAll(@Res() response) {
-    return response.status(200).json({message: 'Listagem de cursos'});
+  findAll() {
+    return this.courseService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return `Curso ${id}`;
+  findOne(@Param('id') id: number) {
+    return this.courseService.findOne(id);
   }
 
   @Post()
-  create(@Body() body) {
-    return body;
+  create(@Body() createCourseDTO: CreateCourseDTO) {
+    return this.courseService.create(createCourseDTO);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    console.log(body);
-    return `Update do curso ${id}`;
+  update(@Param('id') id: number, @Body() updateCourseDTO: UpdateCourseDTO) {
+    return this.courseService.update(id, updateCourseDTO);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `Delete curso ${id}`;
+  remove(@Param('id') id: number) {
+    return this.courseService.remove(id);
   }
 }
