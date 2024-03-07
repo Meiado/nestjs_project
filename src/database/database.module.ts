@@ -5,12 +5,12 @@ import { DataSourceOptions } from 'typeorm';
 export const dataSourceOptions: DataSourceOptions = {
     type: 'postgres',
     host: 'localhost',
-    port: 5433,
+    port: 5432,
     username: 'postgres',
     password: 'docker',
     database: 'nestjs',
     entities: [],
-    synchronize: true,
+    synchronize: false,
 }
 
 @Module({
