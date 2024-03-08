@@ -1,12 +1,21 @@
-/* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course-dto';
 import { UpdateCourseDTO } from './dto/update-course-dto';
 
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly courseService : CoursesService) {}
+  constructor(private readonly courseService: CoursesService) {}
 
   @Get()
   findAll() {
@@ -14,7 +23,7 @@ export class CoursesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.courseService.findOne(id);
   }
 
@@ -24,13 +33,13 @@ export class CoursesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateCourseDTO: UpdateCourseDTO) {
+  update(@Param('id') id: string, @Body() updateCourseDTO: UpdateCourseDTO) {
     return this.courseService.update(id, updateCourseDTO);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return this.courseService.remove(id);
   }
 }
