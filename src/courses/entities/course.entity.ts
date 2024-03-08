@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -18,6 +19,9 @@ export class Course {
 
   @Column()
   description: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
 
   @JoinTable()
   @ManyToMany(() => Tag, (tag) => tag.courses, {
